@@ -10,10 +10,14 @@ Vue Titlebar for Electron Apps
 
 ## Features
 
-- 🔨 **Customizable** - *customize the behaviour and styles to your liking*
+- 🔐 **Secure** - *uses IPC communication instead of Electron remote module*
 - 🔌 **Easy integration** - *integrates easily with your existing BrowserWindow configuration*
 - 🔋 **Batteries included** - *use the pre-made Telegram like titlebar component*
-- 🤯 **Headless** - *create your own titlebar component and use the provided directives*
+- 🤯 **Headless** - *create your own titlebar component using the provided Vue directives*
+
+## 👋 Introduction
+
+[electron-vue-titlebar](https://github.com/BetaHuhn/electron-vue-titlebar) lets you add a custom [Vue.js](https://vuejs.org/) titlebar component for your [Electron](https://www.electronjs.org/) app. Simply specify which BrowserWindow you want to control and use the provided Vue Component in your renderer or for more customization build your own using the headless directives and you are good to go. All the complicated tasks like communication between the Vue renderer and the Electron main process are taking care of! 
 
 ## 🚀 Get started
 
@@ -37,7 +41,7 @@ const win = new BrowserWindow({
 VueTitlebar.useBrowserWindow(win)
 ```
 
-And then use the methods in the Vue renderer:
+And then use the provided methods in the Vue renderer:
 
 ```vue
 <script>
