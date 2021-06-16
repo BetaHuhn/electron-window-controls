@@ -21,7 +21,7 @@ import CloseIcon from './Icon/close'
 import MinusIcon from './Icon/minus'
 import WindowIcon from './Icon/window'
 
-import { ElectronWindow } from '../'
+import { BrowserWindow } from '../'
 
 export default {
 	name: 'electron-vue-titlebar',
@@ -32,13 +32,13 @@ export default {
 	},
 	methods: {
 		minimize() {
-			ElectronWindow.minimize()
+			BrowserWindow.minimize()
 		},
 		toggleMaximize() {
-			ElectronWindow.toggleMaximize()
+			BrowserWindow.toggleMaximize()
 		},
 		close() {
-			ElectronWindow.close()
+			BrowserWindow.close()
 		}
 	}
 }

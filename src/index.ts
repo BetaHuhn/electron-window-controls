@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain, ipcRenderer } from 'electron'
+import { BrowserWindow as ElectronBrowserWindow, ipcMain, ipcRenderer } from 'electron'
 
 import { ipc } from './helpers'
 // import TitlebarComponent from './components/TitleBar.vue'
@@ -19,7 +19,7 @@ class ElectronVueTitlebar {
 		this.isMaximized = this.opts.isMaximized
 	}
 
-	initIpc(win: BrowserWindow) {
+	initIpc(win: ElectronBrowserWindow) {
 		this.win = win
 
 		ipcMain.on(ipc.TOGGLE_MAXIMIZE, () => {
@@ -47,7 +47,7 @@ class ElectronVueTitlebar {
 		})
 	}
 
-	static createBrowserWindow(options: any): BrowserWindow {
+	static ElectroncreateBrowserWindow(options: any): ElectronBrowserWindow {
 		// Parse winState specific options from options
 		const titleBarOpts = Object.assign({}, { isMaximized: options?.isMaximized, framed: options?.frame }, options?.titlebar)
 
@@ -57,15 +57,15 @@ class ElectronVueTitlebar {
 		delete options.titlebar
 		delete options.isMaximized
 
-		// Create a new BrowserWindow with the provided options and the current winState
-		const win = new BrowserWindow(options)
+		// Create a new ElectronBrowserWindow with the provided options and the current winState
+		const win = new ElectronBrowserWindow(options)
 
 		titlebar.initIpc(win)
 
 		return win
 	}
 
-	static useBrowserWindow(win: BrowserWindow, options?: any) {
+	static ElectronuseBrowserWindow(win: ElectronBrowserWindow, options?: any) {
 		const titleBarOpts = Object.assign({}, { isMaximized: options?.isMaximized, framed: options?.frame }, options?.titlebar)
 
 		const titlebar = new ElectronVueTitlebar(titleBarOpts)
@@ -98,6 +98,6 @@ class ElectronVueTitlebar {
     }
 } */
 
-export const ElectronWindow = ElectronVueTitlebar.initRenderer()
+export const BrowserWindow = ElectronVueTitlebar.initRenderer()
 
 export default ElectronVueTitlebar
