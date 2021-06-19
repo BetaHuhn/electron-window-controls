@@ -1,7 +1,7 @@
 {
-	"name": "electron-vue-titlebar",
+	"name": "electron-window-controls",
 	"version": "0.1.0",
-	"description": "Vue Titlebar for Electron Apps",
+	"description": "Control your Electron Browser Window securely from the renderer",
 	"main": "./lib/index.js",
 	"types": "./lib/index.d.ts",
 	"files": [
@@ -14,12 +14,12 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/BetaHuhn/electron-vue-titlebar.git"
+		"url": "git+https://github.com/BetaHuhn/electron-window-controls.git"
 	},
 	"bugs": {
-		"url": "https://github.com/BetaHuhn/electron-vue-titlebar/issues"
+		"url": "https://github.com/BetaHuhn/electron-window-controls/issues"
 	},
-	"homepage": "https://github.com/BetaHuhn/electron-vue-titlebar#readme",
+	"homepage": "https://github.com/BetaHuhn/electron-window-controls#readme",
 	"author": "Maximilian Schiller <schiller@mxis.ch>",
 	"license": "MIT",
 	"keywords": [
@@ -36,16 +36,13 @@
 		"@types/node": "^15.12.0",
 		"@typescript-eslint/eslint-plugin": "^4.26.0",
 		"@typescript-eslint/parser": "^4.26.0",
-		"babel-eslint": "^10.1.0",
 		"eslint": "^7.27.0",
-		"eslint-plugin-vue": "^7.11.1",
 		"ts-node": "^9.1.1",
 		"tsc-watch": "^4.4.0",
-		"typescript": "^4.3.2",
-		"vue": "^2.6.13"
+		"type-fest": "^1.2.1",
+		"typescript": "^4.3.2"
 	},
 	"peerDependencies": {
-		"vue": "^2.0.0",
 		"electron": "^11.0.0"
 	},
 	"publishConfig": {

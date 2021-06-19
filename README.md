@@ -1,80 +1,61 @@
 <div align="center">
   
-# Electron Vue Titlebar
+# Electron Window Controls
 
-[![Node CI](https://github.com/BetaHuhn/electron-vue-titlebar/workflows/Node%20CI/badge.svg)](https://github.com/BetaHuhn/electron-vue-titlebar/actions?query=workflow%3A%22Node+CI%22) [![Release CI](https://github.com/BetaHuhn/electron-vue-titlebar/workflows/Release%20CI/badge.svg)](https://github.com/BetaHuhn/electron-vue-titlebar/actions?query=workflow%3A%22Release+CI%22) [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/BetaHuhn/electron-vue-titlebar/blob/master/LICENSE) ![David](https://img.shields.io/david/betahuhn/electron-vue-titlebar)
+[![Node CI](https://github.com/BetaHuhn/electron-window-controls/workflows/Node%20CI/badge.svg)](https://github.com/BetaHuhn/electron-window-controls/actions?query=workflow%3A%22Node+CI%22) [![Release CI](https://github.com/BetaHuhn/electron-window-controls/workflows/Release%20CI/badge.svg)](https://github.com/BetaHuhn/electron-window-controls/actions?query=workflow%3A%22Release+CI%22) [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/BetaHuhn/electron-window-controls/blob/master/LICENSE) ![David](https://img.shields.io/david/betahuhn/electron-window-controls)
 
-Vue Titlebar for Electron Apps
+Control your Electron Browser Window securely from the renderer
 
 </div>
 
-## Features
-
-- 🔐 **Secure** - *uses IPC communication instead of Electron remote module*
-- 🔌 **Easy integration** - *integrates easily with your existing BrowserWindow configuration*
-- 🔋 **Batteries included** - *use the pre-made Telegram like titlebar component*
-- 🤯 **Headless** - *create your own titlebar component using the provided Vue directives*
-
 ## 👋 Introduction
 
-[electron-vue-titlebar](https://github.com/BetaHuhn/electron-vue-titlebar) lets you add a custom [Vue.js](https://vuejs.org/) titlebar component for your [Electron](https://www.electronjs.org/) app. Simply specify which BrowserWindow you want to control and use the provided Vue Component in your renderer or for more customization build your own using the headless directives and you are good to go. All the complicated tasks like communication between the Vue renderer and the Electron main process are taking care of! 
+[electron-window-controls](https://github.com/BetaHuhn/electron-window-controls) lets you control your Electron app's BrowserWindow directly from the renderer process itself. It uses IPC communication to do this securely **without** the use of the `remote` module. Once it's initialized in the main process, it can be used in any renderer process and it will figure out which BrowserWindow you want to control automatically.
 
 ## 🚀 Get started
 
 ```shell
-npm install electron-vue-titlebar
+npm install electron-window-controls
 ```
 
-*Requires Electron 11 or later and currently only works with Vue 2*
+*Tested with Electron 11 or later*
 
 ## 📚 Usage
 
-To use [electron-vue-titlebar](https://github.com/BetaHuhn/electron-vue-titlebar), specify the BrowserWindow you want the titlebar to control in the [Electron main process](https://www.electronjs.org/docs/tutorial/quick-start#run-the-main-process):
+To use [electron-window-controls](https://github.com/BetaHuhn/electron-window-controls), simply inititalize it in the Electron main process:
 
 ```js
-import VueTitlebar from 'electron-vue-titlebar'
+import WindowControls from 'electron-window-controls'
 
-const win = new BrowserWindow({
-	frame: false // Hide the default application frame
-})
-
-VueTitlebar.useBrowserWindow(win)
+WindowControls.initMain()
 ```
 
-And then use the provided methods in the Vue renderer:
+And you are done! 🎉
 
-```vue
-<script>
-import { BrowserWindow } from 'electron-vue-titlebar'
+After that you can use the provided methods in the renderer:
 
-export default {
-	methods: {
-		minimize() {
-			BrowserWindow.minimize()
-		},
-		toggleMaximize() {
-			BrowserWindow.toggleMaximize()
-		},
-		close() {
-			BrowserWindow.close()
-		}
-	}
-}
-</script>
+```js
+import { BrowserWindow } from 'electron-window-controls'
+
+BrowserWindow.minimize()
+
+BrowserWindow.toggleMaximize()
+
+BrowserWindow.close()
 ```
 
-And you are done! Your Electron app now has a custom Vue titlebar! 🎉
+[electron-window-controls](https://github.com/BetaHuhn/electron-window-controls) will control the BrowserWindow from which it was called.
 
 ## ⚙️ Options
 
-You can also pass an options object to `.useBrowserWindow()` or `.createBrowserWindow()` to customize the behaviour of [electron-vue-titlebar](https://github.com/BetaHuhn/electron-vue-titlebar) further:
+You can also pass an options object to `.initMain()` or `new WindowControls()` to customize the behaviour of [electron-window-controls](https://github.com/BetaHuhn/electron-window-controls) further:
 
 ```js
-VueTitlebar.useBrowserWindow(win, {
-	// options..
+WindowControls.initMain({
+	// options...
 })
 ```
-<details><summary>Here are all the options <a href="https://github.com/BetaHuhn/electron-vue-titlebar">electron-vue-titlebar</a> supports:</summary>
+<details><summary>Here are all the options <a href="https://github.com/BetaHuhn/electron-window-controls">electron-window-controls</a> supports:</summary>
 <br>
 
 | Name | Type | Description | Default |
@@ -83,51 +64,69 @@ VueTitlebar.useBrowserWindow(win, {
 
 </details>
 
-## 🛠️ Configuration
-
-Here are some of the more important options in a more detailed form.
-
-### Paths
-
-You can specify different paths (i.e. parts) of you state with the `paths` option. It accepts an array of paths specified using dot notation e.g. `user.name`.
-
-If no paths are given, the complete state is persisted. If an empty array is given, no state is persisted.
-
-<details><summary>See Example</summary><br>
-	
-```js
-PersistedState.create({
-	paths: ['user.token']
-})
-```
-
-Here, only the `user.token` will be persisted and rehydrated.
-	
-</details>
-
----
-
 ## 📖 Examples
 
 Here are a few examples to help you get started!
 
 ### Basic Example
 
+**Main process**:
+
 ```js
-import VueTitlebar from 'electron-vue-titlebar'
+import WindowControls from 'electron-window-controls'
+
+WindowControls.initMain()
+```
+
+**Renderer process**:
+
+```js
+import { BrowserWindow } from 'electron-window-controls'
+
+BrowserWindow.minimize()
+
+BrowserWindow.toggleMaximize()
+
+BrowserWindow.close()
+```
+
+---
+
+### Custom Titlebar with Vue
+
+You might want to add a custom titlebar to your Electron app. This can be achived pretty easy with [electron-window-controls](https://github.com/BetaHuhn/electron-window-controls) and [Vue.js]():
+
+**Main process**:
+
+```js
+import { BrowserWindow } from 'electron'
+import WindowControls from 'electron-window-controls'
 
 const win = new BrowserWindow({
 	frame: false // Hide the default application frame
 })
 
-VueTitlebar.useBrowserWindow(win)
+// Load the Vue app
+win.loadURL('app://./index.html')
+
+// Initialize electron-window-controls
+WindowControls.initMain()
 ```
 
-And then use the methods in the Vue renderer:
+**Vue renderer**:
 
-```vue
+```html
+<template>
+  <!-- Your titlebar -->
+  <div class="controls">
+	<button @click="minimize">Min</button>
+	<button @click="toggleMaximize">Max</button>
+	<button @click="close">Close</button>
+  </div>
+</template>
+
 <script>
-import { BrowserWindow } from 'electron-vue-titlebar'
+import { BrowserWindow } from 'electron-window-controls'
 
 export default {
 	methods: {

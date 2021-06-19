@@ -1,90 +1,109 @@
 import { BrowserWindow as ElectronBrowserWindow, ipcMain, ipcRenderer } from 'electron'
 
 import { ipc } from './helpers'
-// import TitlebarComponent from './components/TitleBar.vue'
+import { Options, FinalOptions, WindowMethods } from './types'
 
-class ElectronVueTitlebar {
+/**
+ * Control your Electron Browser Window securely from the renderer.
+ * @example
+	```
+	// Main process
+	import WindowControls from 'electron-window-controls'
 
-	opts: any
-	win?: any
-	isMaximized?: boolean
+	WindowControls.initMain()
 
-	constructor(options: any) {
-		const defaultOptions = {
-			isMaximized: false,
-			framed: false
+	// Renderer process
+	import { BrowserWindow } from 'electron-window-controls'
+
+	BrowserWindow.minimize()
+
+	BrowserWindow.toggleMaximize()
+
+	BrowserWindow.close()
+	```
+ */
+class ElectronWindowControls {
+
+	opts: FinalOptions
+	isMaximized: boolean
+
+	constructor(options?: Options) {
+		const defaultOptions: FinalOptions = {
+			isMaximized: false
 		}
 
 		this.opts = Object.assign({}, defaultOptions, options)
 		this.isMaximized = this.opts.isMaximized
 	}
 
-	initIpc(win: ElectronBrowserWindow) {
-		this.win = win
+	/**
+	 * Attach the required IPC event handlers.
+	 */
+	initIpc(): void {
+		ipcMain.on(ipc.TOGGLE_MAXIMIZE, (event) => {
+			const win = ElectronBrowserWindow.fromWebContents(event.sender)
+			if (!win) throw new Error('[electron-window-controls] No window found')
 
-		ipcMain.on(ipc.TOGGLE_MAXIMIZE, () => {
 			if (this.isMaximized) {
 				this.isMaximized = false
-	
-				console.log('unmaximize')
-				this.win.unmaximize()
+				win.unmaximize()
 			} else {
 				this.isMaximized = true
-	
-				console.log('maximize')
-				this.win.maximize()
+				win.maximize()
 			}
 		})
-	
-		ipcMain.on(ipc.MINIMIZE, () => {
-			console.log('minimize')
-			this.win.minimize()
+
+		ipcMain.on(ipc.MINIMIZE, (event) => {
+			const win = ElectronBrowserWindow.fromWebContents(event.sender)
+			if (!win) throw new Error('[electron-window-controls] No window found')
+
+			win.minimize()
 		})
-	
-		ipcMain.on(ipc.CLOSE, () => {
-			console.log('close')
-			this.win.close()
+
+		ipcMain.on(ipc.CLOSE, (event) => {
+			const win = ElectronBrowserWindow.fromWebContents(event.sender)
+			if (!win) throw new Error('[electron-window-controls] No window found')
+
+			win.close()
 		})
 	}
 
-	static ElectroncreateBrowserWindow(options: any): ElectronBrowserWindow {
-		// Parse winState specific options from options
-		const titleBarOpts = Object.assign({}, { isMaximized: options?.isMaximized, framed: options?.frame }, options?.titlebar)
+	/**
+	 * Initialize the Electron main process.
+	 *
+	 * Will create a new ElectronWindowControls instance and attach the required event listeners.
+	 *
+	 * **Note:** Only use it in the Electron main process.
+	 * @param {Options} options
+	 * @returns {ElectronWindowControls} New ElectronWindowControls instance
+	 * @example
+		```
+		import WindowControls from 'electron-window-controls'
 
-		const titlebar = new ElectronVueTitlebar(titleBarOpts)
+		WindowControls.initMain()
+		```
+	 */
+	static initMain(options?: Options): ElectronWindowControls {
+		const windowControls = new ElectronWindowControls(options)
+		windowControls.initIpc()
 
-		// Cleanup options object
-		delete options.titlebar
-		delete options.isMaximized
-
-		// Create a new ElectronBrowserWindow with the provided options and the current winState
-		const win = new ElectronBrowserWindow(options)
-
-		titlebar.initIpc(win)
-
-		return win
+		return windowControls
 	}
 
-	static ElectronuseBrowserWindow(win: ElectronBrowserWindow, options?: any) {
-		const titleBarOpts = Object.assign({}, { isMaximized: options?.isMaximized, framed: options?.frame }, options?.titlebar)
-
-		const titlebar = new ElectronVueTitlebar(titleBarOpts)
-
-		titlebar.initIpc(win)
-
-		return titlebar
-	}
-
-	static initRenderer() {
+	/**
+	 * Initialize the renderer.
+	 *
+	 * **Note:** Only use it in the Electron renderer process.
+	 * @returns {WindowMethods} Methods to control the BrowserWindow from which they are called
+	 */
+	static initRenderer(): WindowMethods {
 		return {
 			close: () => {
 				ipcRenderer.send(ipc.CLOSE)
 			},
-		
 			minimize: () => {
 				ipcRenderer.send(ipc.MINIMIZE)
 			},
-		
 			toggleMaximize: () => {
 				ipcRenderer.send(ipc.TOGGLE_MAXIMIZE)
 			}
@@ -92,12 +111,9 @@ class ElectronVueTitlebar {
 	}
 }
 
-/* export const Titlebar = {
-    install(Vue: any) {
-        Vue.component(TitlebarComponent.name, TitlebarComponent);
-    }
-} */
+/**
+ * Methods to control the BrowserWindow from which they are called
+ */
+export const BrowserWindow = ElectronWindowControls.initRenderer()
 
-export const BrowserWindow = ElectronVueTitlebar.initRenderer()
-
-export default ElectronVueTitlebar
+export default ElectronWindowControls
