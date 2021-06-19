@@ -154,6 +154,10 @@ Issues and PRs are very welcome!
 - run `yarn watch` or `npm run watch` to watch for changes.
 - run `yarn build` or `npm run build` to produce a compiled version in the `lib` folder.
 
+### To Do
+
+- Add more of [Electron BrowserWindow's methods](https://www.electronjs.org/docs/api/browser-window#instance-methods)
+
 ## ❔ About
 
 This project was developed by me ([@betahuhn](https://github.com/BetaHuhn)) in my free time. If you want to support me:
