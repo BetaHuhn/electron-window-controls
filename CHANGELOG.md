@@ -1,3 +1,14 @@
+## [v1.0.8] - 2021-08-09
+
+[Release notes](https://github.com/BetaHuhn/electron-window-controls/releases/tag/v1.0.8) · [Compare](https://github.com/BetaHuhn/electron-window-controls/compare/v1.0.7...v1.0.8) · [Tag](https://github.com/BetaHuhn/electron-window-controls/tree/v1.0.8) · Archive ([zip](https://github.com/BetaHuhn/electron-window-controls/archive/v1.0.8.zip) · [tar.gz](https://github.com/BetaHuhn/electron-window-controls/archive/v1.0.8.tar.gz))
+
+### Dependency updates
+
+- [`07c0020`](https://github.com/BetaHuhn/electron-window-controls/commit/07c0020)  Bump type-fest from 1.2.3 to 1.3.0
+- [`c32afe9`](https://github.com/BetaHuhn/electron-window-controls/commit/c32afe9)  Bump eslint from 7.31.0 to 7.32.0
+- [`42e2d6d`](https://github.com/BetaHuhn/electron-window-controls/commit/42e2d6d)  Bump @typescript-eslint/eslint-plugin from 4.28.5 to 4.29.0
+- [`7ea2e0f`](https://github.com/BetaHuhn/electron-window-controls/commit/7ea2e0f)  Bump @typescript-eslint/parser from 4.28.5 to 4.29.0
+
 ## [v1.0.7] - 2021-08-02
 
 [Release notes](https://github.com/BetaHuhn/electron-window-controls/releases/tag/v1.0.7) · [Compare](https://github.com/BetaHuhn/electron-window-controls/compare/v1.0.6...v1.0.7) · [Tag](https://github.com/BetaHuhn/electron-window-controls/tree/v1.0.7) · Archive ([zip](https://github.com/BetaHuhn/electron-window-controls/archive/v1.0.7.zip) · [tar.gz](https://github.com/BetaHuhn/electron-window-controls/archive/v1.0.7.tar.gz))
