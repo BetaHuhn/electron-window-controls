@@ -1,6 +1,6 @@
 {
 	"name": "electron-window-controls",
-	"version": "1.0.14",
+	"version": "1.0.15",
 	"description": "Control your Electron Browser Window securely from the renderer",
 	"main": "./lib/index.js",
 	"types": "./lib/index.d.ts",
