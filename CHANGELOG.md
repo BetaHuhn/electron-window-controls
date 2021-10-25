@@ -1,3 +1,11 @@
+## [v1.0.19] - 2021-10-25
+
+[Release notes](https://github.com/BetaHuhn/electron-window-controls/releases/tag/v1.0.19) · [Compare](https://github.com/BetaHuhn/electron-window-controls/compare/v1.0.18...v1.0.19) · [Tag](https://github.com/BetaHuhn/electron-window-controls/tree/v1.0.19) · Archive ([zip](https://github.com/BetaHuhn/electron-window-controls/archive/v1.0.19.zip) · [tar.gz](https://github.com/BetaHuhn/electron-window-controls/archive/v1.0.19.tar.gz))
+
+### Dependency updates
+
+- [`75ee8c6`](https://github.com/BetaHuhn/electron-window-controls/commit/75ee8c6)  Bump electron from 12.0.4 to 12.1.0
+
 ## [v1.0.18] - 2021-10-18
 
 [Release notes](https://github.com/BetaHuhn/electron-window-controls/releases/tag/v1.0.18) · [Compare](https://github.com/BetaHuhn/electron-window-controls/compare/v1.0.17...v1.0.18) · [Tag](https://github.com/BetaHuhn/electron-window-controls/tree/v1.0.18) · Archive ([zip](https://github.com/BetaHuhn/electron-window-controls/archive/v1.0.18.zip) · [tar.gz](https://github.com/BetaHuhn/electron-window-controls/archive/v1.0.18.tar.gz))
