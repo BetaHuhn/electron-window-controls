@@ -1,3 +1,11 @@
+## [v1.0.22] - 2021-12-20
+
+[Release notes](https://github.com/BetaHuhn/electron-window-controls/releases/tag/v1.0.22) · [Compare](https://github.com/BetaHuhn/electron-window-controls/compare/v1.0.21...v1.0.22) · [Tag](https://github.com/BetaHuhn/electron-window-controls/tree/v1.0.22) · Archive ([zip](https://github.com/BetaHuhn/electron-window-controls/archive/v1.0.22.zip) · [tar.gz](https://github.com/BetaHuhn/electron-window-controls/archive/v1.0.22.tar.gz))
+
+### Dependency updates
+
+- [`9874bbd`](https://github.com/BetaHuhn/electron-window-controls/commit/9874bbd)  Bump typescript from 4.5.3 to 4.5.4
+
 ## [v1.0.21] - 2021-12-13
 
 [Release notes](https://github.com/BetaHuhn/electron-window-controls/releases/tag/v1.0.21) · [Compare](https://github.com/BetaHuhn/electron-window-controls/compare/v1.0.20...v1.0.21) · [Tag](https://github.com/BetaHuhn/electron-window-controls/tree/v1.0.21) · Archive ([zip](https://github.com/BetaHuhn/electron-window-controls/archive/v1.0.21.zip) · [tar.gz](https://github.com/BetaHuhn/electron-window-controls/archive/v1.0.21.tar.gz))
