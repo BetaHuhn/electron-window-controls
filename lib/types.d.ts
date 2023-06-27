@@ -23,5 +23,9 @@ export interface WindowMethods {
      * Toggle the maximized state of the window
      */
     toggleMaximize: () => void;
+    /**
+     * Returns the maximization state of the window
+     */
+    isMaximized: () => boolean;
 }
 export declare type FinalOptions = SetRequired<Options, 'isMaximized'>;

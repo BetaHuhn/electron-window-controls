@@ -6,21 +6,23 @@ import { Options, FinalOptions, WindowMethods } from './types'
 /**
  * Control your Electron Browser Window securely from the renderer.
  * @example
-	```
-	// Main process
-	import WindowControls from 'electron-window-controls'
+    ```
+    // Main process
+    import WindowControls from 'electron-window-controls'
 
-	WindowControls.initMain()
+    WindowControls.initMain()
 
-	// Renderer process
-	import { BrowserWindow } from 'electron-window-controls'
+    // Renderer process
+    import { BrowserWindow } from 'electron-window-controls'
 
-	BrowserWindow.minimize()
+    BrowserWindow.minimize()
 
-	BrowserWindow.toggleMaximize()
+    BrowserWindow.toggleMaximize()
 
-	BrowserWindow.close()
-	```
+    BrowserWindow.close()
+
+    BrowserWindow.isMaximized()
+    ```
  */
 class ElectronWindowControls {
 
@@ -66,6 +68,12 @@ class ElectronWindowControls {
 
 			win.close()
 		})
+		
+		ipcMain.on(ipc.MAXIMIZED, (event) => {
+			var win = ElectronBrowserWindow.fromWebContents(event.sender);
+			if (!win) throw new Error('[electron-window-controls] No window found');
+			event.returnValue = win.isMaximized();
+		});
 	}
 
 	/**
@@ -106,6 +114,9 @@ class ElectronWindowControls {
 			},
 			toggleMaximize: () => {
 				ipcRenderer.send(ipc.TOGGLE_MAXIMIZE)
+			},
+			isMaximized: () => {
+				return ipcRenderer.sendSync(ipc.MAXIMIZED);
 			}
 		}
 	}
