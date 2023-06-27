@@ -1,4 +1,4 @@
-import { Options, FinalOptions, WindowMethods } from 'electron-window-controls/lib/types';
+import { Options, FinalOptions, WindowMethods } from './types';
 /**
  * Control your Electron Browser Window securely from the renderer.
  * @example
